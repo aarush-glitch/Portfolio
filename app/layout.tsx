@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import Navbar from "../components/ui/Navbar";
+import { Dock } from "@/components/magicui/dock";
+import { ScrollProgress } from "@/components/magicui/scroll-progress";
 import FlickeringGridBg from "../components/ui/FlickeringGridBg";
 
 const geistSans = Geist({
@@ -32,7 +33,17 @@ export default function RootLayout({
       >
         <FlickeringGridBg />
         <div className="relative z-10">
-          <Navbar />
+          <Dock 
+            items={[
+              { label: "Home", href: "#hero" },
+              { label: "Skills", href: "#skills" },
+              { label: "Experience", href: "#experience" },
+              { label: "Projects", href: "#projects" },
+              { label: "Contact", href: "#contact" }
+            ]}
+            className="fixed top-8 left-1/2 -translate-x-1/2 z-50"
+          />
+          <ScrollProgress className="top" />
           {children}
         </div>
       </body>
