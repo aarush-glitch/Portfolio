@@ -118,12 +118,12 @@ export function ProjectsMarquee3D() {
 				Projects
 			</h2>
 			<div className="relative flex flex-col min-h-[100vh] w-full max-w-none items-center justify-center gap-4 overflow-visible [perspective:1600px]">
-				<Marquee pauseOnHover className="[--duration:20s] w-full">
+				<Marquee pauseOnHover className="[--duration:80s] w-full">
 					{firstRow.map((project, idx) => (
 						<ProjectCard key={project.title + idx} {...project} large />
 					))}
 				</Marquee>
-				<Marquee reverse pauseOnHover className="[--duration:22s] w-full">
+				<Marquee reverse pauseOnHover className="[--duration:50s] w-full">
 					{secondRow.map((project, idx) => (
 						<ProjectCard key={project.title + idx + 'r'} {...project} large />
 					))}
