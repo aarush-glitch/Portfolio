@@ -1,4 +1,4 @@
 // Experience timeline placeholder
 export default function Experience() {
-  return <section>Experience Timeline</section>;
+  return <section id="experience">Experience Timeline</section>;
 }
