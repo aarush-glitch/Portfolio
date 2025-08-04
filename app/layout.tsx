@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-import { Dock } from "@/components/magicui/dock";
-import { ScrollProgress } from "@/components/magicui/scroll-progress";
 import FlickeringGridBg from "../components/ui/FlickeringGridBg";
+
+import { ScrollProgress } from "@/components/magicui/scroll-progress";
+import { DockBar } from "@/components/DockBar"; // ✅ new magic DockBar
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,20 +32,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground relative`}
       >
         <FlickeringGridBg />
-        <div className="relative z-10">
-          <Dock 
-            items={[
-              { label: "Home", href: "#hero" },
-              { label: "Skills", href: "#skills" },
-              { label: "Experience", href: "#experience" },
-              { label: "Projects", href: "#projects" },
-              { label: "Contact", href: "#contact" }
-            ]}
-            className="fixed top-8 left-1/2 -translate-x-1/2 z-50"
-          />
-          <ScrollProgress className="top" />
-          {children}
-        </div>
+
+        {/* ✅ Use new DockBar instead of old Dock */}
+        <DockBar />
+
+        <ScrollProgress className="top" />
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   );

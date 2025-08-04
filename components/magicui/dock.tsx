@@ -1,84 +1,144 @@
 "use client";
-import React, { useState, useEffect } from "react";
 
-export function Dock({ items = [], className = "" }) {
-  const [active, setActive] = useState("");
-  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
+import { cva, type VariantProps } from "class-variance-authority";
+import {
+  motion,
+  MotionProps,
+  MotionValue,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "motion/react";
+import React, { PropsWithChildren, useRef } from "react";
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      let found = items[0]?.href?.substring(1) || "";
-      
-      for (const item of items) {
-        const sectionId = item.href?.substring(1);
-        if (!sectionId) continue;
-        
-        const el = document.getElementById(sectionId);
-        if (el) {
-          const offset = el.offsetTop;
-          if (scrollY + 120 >= offset) found = sectionId;
+import { cn } from "@/lib/utils";
+
+export interface DockProps extends VariantProps<typeof dockVariants> {
+  className?: string;
+  iconSize?: number;
+  iconMagnification?: number;
+  iconDistance?: number;
+  direction?: "top" | "middle" | "bottom";
+  children: React.ReactNode;
+}
+
+const DEFAULT_SIZE = 40;
+const DEFAULT_MAGNIFICATION = 60;
+const DEFAULT_DISTANCE = 140;
+
+const dockVariants = cva(
+  "supports-backdrop-blur:bg-white/10 supports-backdrop-blur:dark:bg-black/10 mx-auto mt-8 flex h-[58px] w-max items-center justify-center gap-2 rounded-2xl border p-2 backdrop-blur-md",
+);
+
+const Dock = React.forwardRef<HTMLDivElement, DockProps>(
+  (
+    {
+      className,
+      children,
+      iconSize = DEFAULT_SIZE,
+      iconMagnification = DEFAULT_MAGNIFICATION,
+      iconDistance = DEFAULT_DISTANCE,
+      direction = "middle",
+      ...props
+    },
+    ref,
+  ) => {
+    const mouseX = useMotionValue(Infinity);
+
+    const renderChildren = () => {
+      return React.Children.map(children, (child) => {
+        if (
+          React.isValidElement<DockIconProps>(child) &&
+          child.type === DockIcon
+        ) {
+          return React.cloneElement(child, {
+            ...child.props,
+            mouseX: mouseX,
+            size: iconSize,
+            magnification: iconMagnification,
+            distance: iconDistance,
+          });
         }
-      }
-      
-      setActive(found);
+        return child;
+      });
     };
-    
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initial check
-    
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [items]);
 
-  useEffect(() => {
-    const el = document.getElementById(`dock-${active}`);
-    if (el) {
-      setIndicatorStyle({ left: el.offsetLeft, width: el.offsetWidth });
-    }
-  }, [active]);
+    return (
+      <motion.div
+        ref={ref}
+        onMouseMove={(e) => mouseX.set(e.pageX)}
+        onMouseLeave={() => mouseX.set(Infinity)}
+        {...props}
+        className={cn(dockVariants({ className }), {
+          "items-start": direction === "top",
+          "items-center": direction === "middle",
+          "items-end": direction === "bottom",
+        })}
+      >
+        {renderChildren()}
+      </motion.div>
+    );
+  },
+);
 
-  const handleClick = (e, href) => {
-    e.preventDefault();
-    const sectionId = href.substring(1);
-    const el = document.getElementById(sectionId);
-    
-    if (el) {
-      window.scrollTo({ top: el.offsetTop - 80, behavior: "smooth" });
-      setActive(sectionId);
-    }
-  };
+Dock.displayName = "Dock";
+
+export interface DockIconProps
+  extends Omit<MotionProps & React.HTMLAttributes<HTMLDivElement>, "children"> {
+  size?: number;
+  magnification?: number;
+  distance?: number;
+  mouseX?: MotionValue<number>;
+  className?: string;
+  children?: React.ReactNode;
+  props?: PropsWithChildren;
+}
+
+const DockIcon = ({
+  size = DEFAULT_SIZE,
+  magnification = DEFAULT_MAGNIFICATION,
+  distance = DEFAULT_DISTANCE,
+  mouseX,
+  className,
+  children,
+  ...props
+}: DockIconProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const padding = Math.max(6, size * 0.2);
+  const defaultMouseX = useMotionValue(Infinity);
+
+  const distanceCalc = useTransform(mouseX ?? defaultMouseX, (val: number) => {
+    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+    return val - bounds.x - bounds.width / 2;
+  });
+
+  const sizeTransform = useTransform(
+    distanceCalc,
+    [-distance, 0, distance],
+    [size, magnification, size],
+  );
+
+  const scaleSize = useSpring(sizeTransform, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
 
   return (
-    <nav className={`flex items-center justify-center gap-2 py-2 px-6 bg-white/90 backdrop-blur-lg rounded-full shadow-lg border border-primary/30 ${className}`}>
-      <ul className="flex gap-2 relative">
-        {items.map((item, idx) => {
-          const sectionId = item.href?.substring(1) || "";
-          const isActive = active === sectionId;
-          
-          return (
-            <li key={idx} className="relative">
-              <a
-                id={`dock-${sectionId}`}
-                href={item.href}
-                className={`px-4 py-1.5 font-semibold text-base rounded-full transition-colors duration-200 text-black flex items-center`}
-                onClick={(e) => handleClick(e, item.href)}
-                target={item.external ? "_blank" : undefined}
-                rel={item.external ? "noopener noreferrer" : undefined}
-              >
-                {item.icon && <span className="mr-1">{item.icon}</span>}
-                <span>{item.label}</span>
-              </a>
-            </li>
-          );
-        })}
-        <span
-          className="absolute bottom-0 h-[4px] rounded-full bg-gradient-to-r from-[#a259ff] to-[#7f37ff] transition-all duration-300 shadow-[0_0_10px_rgba(162,89,255,0.7)]"
-          style={{
-            left: indicatorStyle.left,
-            width: indicatorStyle.width,
-          }}
-        />
-      </ul>
-    </nav>
+    <motion.div
+      ref={ref}
+      style={{ width: scaleSize, height: scaleSize, padding }}
+      className={cn(
+        "flex aspect-square cursor-pointer items-center justify-center rounded-full",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </motion.div>
   );
-}
+};
+
+DockIcon.displayName = "DockIcon";
+
+export { Dock, DockIcon, dockVariants };

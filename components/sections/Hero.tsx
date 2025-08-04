@@ -24,7 +24,7 @@ export default function Hero() {
         </div>
         <div className="flex flex-col items-center md:items-start gap-4 w-full max-w-xl">
           <h1 className="text-5xl md:text-6xl font-extrabold text-white tracking-tight text-center md:text-left">
-            Hi, I'm Aarush
+            Hi, I&rsquo;m Aarush
           </h1>
           <h2 className="text-2xl md:text-3xl font-semibold text-center md:text-left drop-shadow-[0_1px_8px_#a259ff55] animate-gradient-text bg-gradient-to-r from-[#a259ff] via-[#43e7ad] to-[#7f37ff] bg-[length:200%_200%] bg-clip-text text-transparent">
             Final-year CSE Student · Software Developer
@@ -40,7 +40,7 @@ export default function Hero() {
               { text: "Top 3% Amazon ML Summer School", color: "from-[#23213a] to-[#2a2d3e]" },
               { text: "500+ DSA Problems", color: "from-[#23213a] to-[#2a2d3e]" },
               { text: "2nd Place Coding Wizards Hackathon", color: "from-[#23213a] to-[#2a2d3e]" },
-            ].map((item, idx) => (
+            ].map((item) => (
               <span
                 key={item.text}
                 className={`relative px-5 py-2 rounded-xl font-semibold text-white shadow-lg backdrop-blur-md bg-gradient-to-br ${item.color} transition-all duration-300 hover:scale-105 hover:shadow-[0_0_24px_4px_#a259ff33] cursor-pointer border border-white/10`} 

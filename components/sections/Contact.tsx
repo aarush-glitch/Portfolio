@@ -111,15 +111,30 @@ export default function Contact() {
                 </a>
               </div>
             </div>
+            {/* ✅ Phone Number */}
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#23213a]">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#43e7ad" strokeWidth="2" viewBox="0 0 24 24">
+            <path d="M22 16.92V21a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.57 19.57 0 0 1-6-6A19.86 19.86 0 0 1 1 4.18 2 2 0 0 1 3 2h4.09a2 2 0 0 1 2 1.72c.12.81.43 1.6.91 2.28L11.7 8.6a2 2 0 0 1-.45 2.65l-1.27 1a16 16 0 0 0 6 6l1-1.27a2 2 0 0 1 2.65-.45l2.61 1.7a2 2 0 0 1 .71 2.24z" />
+          </svg>
+        </div>
+        <div>
+          <p className="text-[#bdbdbd] text-sm">Phone</p>
+          <a href="tel:+919599057020" className="text-white hover:text-[#43e7ad] transition-colors">
+            +91 95990 57020
+          </a>
+        </div>
+      </div>
           </div>
           
           <div className="mt-8 pt-6">
-            <p className="text-[#ededed] text-center">Let's build something amazing together!</p>
+            <p className="text-[#ededed] text-center">Let&rsquo;s build something amazing together!</p>
           </div>
         </div>
         
         {/* Contact Form */}
-        <div className="flex-1 bg-[#181726] rounded-2xl p-8 shadow-lg border border-white/10 transition-all duration-500 hover:shadow-[0_0_32px_4px_#43e7ad55]">
+        <div className="flex-1 bg-[#181726] rounded-2xl p-8 shadow-none border border-white/10 z-10">
+
           {isSubmitted ? (
             <div className="h-full flex flex-col items-center justify-center text-center py-8">
               <div className="w-16 h-16 rounded-full bg-[#23213a] flex items-center justify-center mb-4">
@@ -128,7 +143,7 @@ export default function Contact() {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-              <p className="text-[#bdbdbd] max-w-md">Thank you for reaching out. I'll get back to you as soon as possible.</p>
+              <p className="text-[#bdbdbd] max-w-md">Thank you for reaching out. I&rsquo;ll get back to you as soon as possible.</p>
               <button 
                 onClick={() => setIsSubmitted(false)}
                 className="mt-6 px-6 py-2 rounded-full bg-[#23213a] text-white hover:bg-[#43e7ad]/20 hover:text-[#43e7ad] transition-colors border border-[#43e7ad]/30"
@@ -166,7 +181,7 @@ export default function Contact() {
                   value={formState.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-[#23213a] border border-white/10 text-white focus:border-[#43e7ad] focus:ring-1 focus:ring-[#43e7ad] outline-none transition-colors"
+                  className="w-full px-4 py-1.5 rounded-lg bg-[#23213a] border border-white/10 text-white focus:border-[#43e7ad] focus:ring-1 focus:ring-[#43e7ad] outline-none transition-colors"
                   placeholder="Your name"
                 />
               </div>
@@ -180,7 +195,7 @@ export default function Contact() {
                   value={formState.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-[#23213a] border border-white/10 text-white focus:border-[#43e7ad] focus:ring-1 focus:ring-[#43e7ad] outline-none transition-colors"
+                  className="w-full px-4 py-1.5 rounded-lg bg-[#23213a] border border-white/10 text-white focus:border-[#43e7ad] focus:ring-1 focus:ring-[#43e7ad] outline-none transition-colors"
                   placeholder="your.email@example.com"
                 />
               </div>
@@ -193,7 +208,7 @@ export default function Contact() {
                   name="subject"
                   value={formState.subject}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-lg bg-[#23213a] border border-white/10 text-white focus:border-[#43e7ad] focus:ring-1 focus:ring-[#43e7ad] outline-none transition-colors"
+                  className="w-full px-4 py-1.5 rounded-lg bg-[#23213a] border border-white/10 text-white focus:border-[#43e7ad] focus:ring-1 focus:ring-[#43e7ad] outline-none transition-colors"
                   placeholder="What's this about?"
                 />
               </div>
@@ -207,7 +222,7 @@ export default function Contact() {
                   onChange={handleInputChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 rounded-lg bg-[#23213a] border border-white/10 text-white focus:border-[#43e7ad] focus:ring-1 focus:ring-[#43e7ad] outline-none transition-colors resize-none"
+                  className="w-full px-4 py-1.5 rounded-lg bg-[#23213a] border border-white/10 text-white focus:border-[#43e7ad] focus:ring-1 focus:ring-[#43e7ad] outline-none transition-colors resize-none"
                   placeholder="Your message..."
                 />
               </div>
@@ -216,7 +231,7 @@ export default function Contact() {
                 type="submit"
                 disabled={isSubmitting}
                 className={cn(
-                  "w-full py-3 rounded-lg font-medium transition-all duration-300",
+                  "w-full py-1.5 rounded-lg font-medium transition-all duration-300",
                   isSubmitting
                     ? "bg-[#23213a] text-white/50 cursor-not-allowed"
                     : "bg-gradient-to-r from-[#a259ff] to-[#43e7ad] text-white hover:shadow-[0_0_20px_5px_#43e7ad55] hover:scale-[1.02]"
