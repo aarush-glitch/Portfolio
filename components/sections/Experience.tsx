@@ -59,7 +59,7 @@ export default function Experience() {
 
   return (
     <section id="experience" className="relative py-24 w-full flex flex-col items-center justify-center min-h-[80vh] bg-transparent">
-      <h2 className="text-5xl font-extrabold text-white mb-16 text-center tracking-tight drop-shadow-xl">Experience</h2>
+      <h2 className="text-6xl font-extrabold text-white mb-16 text-center tracking-tight drop-shadow-xl">Experience</h2>
       <div className="flex flex-row gap-12 w-full max-w-5xl mx-auto items-start justify-center">
         {/* Timeline column */}
         <div className="relative flex flex-col items-center w-24" style={{ minWidth: 64 }}>

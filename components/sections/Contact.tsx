@@ -41,7 +41,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative py-24 w-full flex flex-col items-center justify-center min-h-[80vh] bg-transparent">
-      <h2 className="text-5xl font-extrabold text-white mb-16 text-center tracking-tight drop-shadow-xl">Get In Touch</h2>
+      <h2 className="text-6xl font-extrabold text-white mb-16 text-center tracking-tight drop-shadow-xl">Get In Touch</h2>
       
       <div className="flex flex-col md:flex-row gap-8 w-full max-w-5xl mx-auto items-stretch justify-center">
         {/* Contact Card */}
@@ -120,8 +120,8 @@ export default function Contact() {
         </div>
         <div>
           <p className="text-[#bdbdbd] text-sm">Phone</p>
-          <a href="tel:+919599057020" className="text-white hover:text-[#43e7ad] transition-colors">
-            +91 95990 57020
+          <a href="tel:+919311347116" className="text-white hover:text-[#43e7ad] transition-colors">
+            +91 9311347116
           </a>
         </div>
       </div>

@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export function DockBar() {
   return (
-    <Dock className="fixed top-2 left-1/2 -translate-x-1/2 z-50">
+    <Dock className="fixed top left-1/2 -translate-x-1/2 z-50">
       <DockIcon>
         <Link href="#hero" className="relative group flex flex-col items-center">
           <MonitorSmartphone className="h-6 w-6" />

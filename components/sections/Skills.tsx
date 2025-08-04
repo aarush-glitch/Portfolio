@@ -56,7 +56,7 @@ const skills = [
 export default function Skills() {
   return (
     <section id="skills" className="relative py-20 w-full flex flex-col items-center justify-center min-h-[60vh]">
-      <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-10 text-center tracking-tight drop-shadow-xl">
+      <h2 className="text-6xl md:text-6xl font-extrabold text-white mb-10 text-center tracking-tight drop-shadow-xl">
         Skills
       </h2>
       {/* Animation keyframes moved to globals.css */}
