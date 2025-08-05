@@ -73,12 +73,13 @@ export default function Skills() {
                 className={`relative w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-br from-[#23213a] to-[#2a2d3e] shadow-lg border border-white/10 animate-rotateCard transition-transform duration-300 hover:scale-125`}
                 style={{ animationDelay: `${(idx % 8) * 0.2}s` }}
               >
-                {/* Replace with real tech icons as needed */}
                 <skill.icon className="w-7 h-7 text-[#43e7ad]" />
-                <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 rounded bg-[#23213a] text-white text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-lg z-20">
-                  {skill.name}
-                </span>
               </div>
+              <span
+                className="absolute mt-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#23213a] text-white text-xs font-semibold px-2 py-1 rounded shadow-lg whitespace-nowrap z-20"
+              >
+                {skill.name}
+              </span>
             </div>
           ))}
         </div>
